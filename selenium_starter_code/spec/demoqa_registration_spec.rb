@@ -5,6 +5,7 @@ describe 'testing the demoqa registration page' do
   before(:all) do
     @driver = SeleniumDemoReg.new
     @driver.access_registration_form
+    # @driver.get_selected_country('Afghanistan')
   end
 
   context 'positive paths for the registration form and register' do
@@ -19,19 +20,21 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a last name' do
-      pending
+      @driver.set_last_name_field('Smith')
+      expect(@driver.get_last_name_field_value['value']).to eq 'Smith'
     end
 
     it 'should accept a marital status selection of Single, Married, or Divorced' do
-      pending
+      @driver.select_marital_option(0)
     end
 
     it 'should accept a hobby status selection of Dance, Reading, or Cricket' do
-      pending
+      @driver.select_hobby_option(0)
     end
 
-    it 'should have a country default of Afhghanistan' do
+    it 'should have a country default of Afghanistan' do
       pending
+      # expect(@driver.country_dropdown_list_select.text).to eq('Afghanistan')
     end
 
     it 'accept a new DOB' do

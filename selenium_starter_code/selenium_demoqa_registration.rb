@@ -6,10 +6,10 @@ class SeleniumDemoReg
   PAGE_URL = 'http://demoqa.com/registration/'
   # Page field
   FIRST_NAME_FIELD = 'name_3_firstname'
-  LAST_NAME_FIELD =  # id
-  MARITAL_STATUS =  # id
-  HOBBY_STATUS =  # values
-  COUNTRY_DROP_DOWN_LIST =  # id
+  LAST_NAME_FIELD = 'name_3_lastname'
+  MARITAL_STATUS = 'radio_4[]'
+  HOBBY_STATUS = 'checkbox_5[]'
+  COUNTRY_DROP_DOWN_LIST = 'dropdown_7'
   DOB_MONTH_DROPDOWN_LIST =  # id
   DOB_DAY_DROPDOWN_LIST =  # id
   DOB_YEAR_DROPDOWN_LIST =  # id
@@ -40,11 +40,10 @@ class SeleniumDemoReg
 
   def set_first_name_field(first_name)
     @chrome_driver.find_element(:id, FIRST_NAME_FIELD).send_keys(first_name)
-    sleep 1
   end
 
   def get_first_name_field_value
-    name = @chrome_driver.find_element(:id, FIRST_NAME_FIELD)
+    @chrome_driver.find_element(:id, FIRST_NAME_FIELD)
   end
 
   def first_name_field_displayed
@@ -53,9 +52,11 @@ class SeleniumDemoReg
   # last name field management - Difficulty Easy
 
   def set_last_name_field(last_name)
+    @chrome_driver.find_element(:id, LAST_NAME_FIELD).send_keys(last_name)
   end
 
   def get_last_name_field_value
+    @chrome_driver.find_element(:id, LAST_NAME_FIELD)
   end
 
   def last_name_field_displayed
@@ -64,6 +65,8 @@ class SeleniumDemoReg
   # Marital option management - Difficulty Medium
 
   def select_marital_option(marital_status)
+    marital = @chrome_driver.find_elements(:name, MARITAL_STATUS)
+    marital[marital_status].click()
     # Consider something like a case statement and check the selenium selected? method
   end
 
@@ -71,7 +74,8 @@ class SeleniumDemoReg
 
   def select_hobby_option(hobby)
     # Consider something like a case statement and check the selenium selected? method
-
+    option = @chrome_driver.find_elements(:name, HOBBY_STATUS)
+    option[hobby].click()
   end
 
   # Select Country - Difficulty HARD
@@ -80,10 +84,13 @@ class SeleniumDemoReg
   # If you are spending too long see if anyone else has been successful
   # If no solution then a run through will happen once finished
 
-  def get_selected_country
+  def get_selected_country(country)
+    dropdown_list = @chrome_driver.find_element(:id, COUNTRY_DROP_DOWN_LIST)
+    options = dropdown_list.find_elements(:tag_name, 'option')
+    @options.each { |option| option.click if @option.text == country }
   end
 
-  def country_dropdown_list_select(country)
+  def country_dropdown_list_select
   end
 
   # DOB management - Difficulty HARD
@@ -161,7 +168,3 @@ class SeleniumDemoReg
 end
 
 call = SeleniumDemoReg.new
-
-call.access_registration_form
-call.set_first_name_field('John')
-call.get_first_name_field_value
