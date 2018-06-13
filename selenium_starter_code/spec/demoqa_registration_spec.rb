@@ -54,15 +54,15 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a about yourself text' do
-      pending
+      @driver.set_about_yourself_field('Lorem ipsum dolor sit amet, consectetur adipisicing.')
     end
 
     it 'should accept a password' do
-      pending
+      @driver.set_password_field('dgtehrye')
     end
 
     it 'should accept a password confirmation' do
-      pending
+      @driver.set_confirmation_password_field('dgtehrye')
     end
 
   end
