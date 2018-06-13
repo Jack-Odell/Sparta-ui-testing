@@ -33,7 +33,7 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should have a country default of Afghanistan' do
-      pending
+      p @driver.country_dropdown_list_select(0)
       # expect(@driver.country_dropdown_list_select.text).to eq('Afghanistan')
     end
 
@@ -46,11 +46,11 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a valid phone number' do
-      pending
+      @driver.set_phone_number_field('01323853745')
     end
 
     it 'should accept a username' do
-      pending
+      @driver.set_user_name_field('Jack')
     end
 
     it 'should accept a about yourself text' do

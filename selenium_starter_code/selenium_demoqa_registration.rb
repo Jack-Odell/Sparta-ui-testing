@@ -13,8 +13,8 @@ class SeleniumDemoReg
   DOB_MONTH_DROPDOWN_LIST =  # id
   DOB_DAY_DROPDOWN_LIST =  # id
   DOB_YEAR_DROPDOWN_LIST =  # id
-  PHONE_NUMBER_FIELDS =  # id
-  USERNAME_FIELD =  # id
+  PHONE_NUMBER_FIELDS =  'phone_9'
+  USERNAME_FIELD =  'username'
   EMAIL_FIELD =  # id
   PROFILE_PICTURE_BUTTON =  # id
   DESCRIPTION_FIELD =  # id
@@ -85,12 +85,11 @@ class SeleniumDemoReg
   # If no solution then a run through will happen once finished
 
   def get_selected_country(country)
-    dropdown_list = @chrome_driver.find_element(:id, COUNTRY_DROP_DOWN_LIST)
-    options = dropdown_list.find_elements(:tag_name, 'option')
-    @options.each { |option| option.click if @option.text == country }
   end
 
-  def country_dropdown_list_select
+  def country_dropdown_list_select(country)
+    dropdown = @chrome_driver.find_elements(:id, COUNTRY_DROP_DOWN_LIST)
+    dropdown[country].click()
   end
 
   # DOB management - Difficulty HARD
@@ -115,6 +114,7 @@ class SeleniumDemoReg
   # Phone number field management - Difficulty Easy
 
   def set_phone_number_field(phone_number)
+    @chrome_driver.find_element(:name, PHONE_NUMBER_FIELDS).send_keys(phone_number)
   end
 
   def get_phone_number_field_value
@@ -123,6 +123,7 @@ class SeleniumDemoReg
   #  username field management - Difficulty Easy
 
   def set_user_name_field(user_name)
+    @chrome_driver.find_element(:name, USERNAME_FIELD).send_keys(user_name)
   end
 
   def get_user_name_field_value
