@@ -11,6 +11,10 @@ class SeleniumQaToolsForm
     @year_exp_id = 'exp-'
     @date_id = 'datepicker'
     @profession_id = 'profession-'
+    @tool_id = 'tool-'
+    @dropdown_id = 'continents'
+    @command_id = 'selenium_commands'
+    @submit_id = 'submit'
   end
 
   def visit_practice_form
@@ -40,6 +44,26 @@ class SeleniumQaToolsForm
   def profession_click(num)
     @chrome_driver.find_element(:id, @profession_id + num).click()
   end
+
+  def tool_click(num)
+    @chrome_driver.find_element(:id, @tool_id + num).click()
+  end
+
+  def continent_select(continent)
+    dropdown = @chrome_driver.find_element(:id, @dropdown_id)
+    option = Selenium::WebDriver::Support::Select.new(dropdown)
+    option.select_by(:text, continent)
+  end
+
+  def command_select(command)
+    dropdown = @chrome_driver.find_element(:id, @command_id)
+    option = Selenium::WebDriver::Support::Select.new(dropdown)
+    option.select_by(:text, command)
+  end
+
+  def submit_click
+    @chrome_driver.find_element(:id, @submit_id).click()
+  end
 end
 
 test = SeleniumQaToolsForm.new
@@ -59,4 +83,22 @@ test.years_exp_click('6')
 test.input_date_field('10/05/2056')
 test.profession_click('0')
 test.profession_click('1')
-sleep 10
+test.tool_click('0')
+test.tool_click('1')
+test.tool_click('2')
+test.continent_select('Australia')
+test.continent_select('Asia')
+test.continent_select('Europe')
+test.continent_select('Africa')
+test.continent_select('North America')
+test.continent_select('South America')
+test.continent_select('Antartica')
+test.command_select('Browser Commands')
+test.command_select('Navigation Commands')
+test.command_select('Switch Commands')
+test.command_select('Wait Commands')
+test.command_select('WebElement Commands')
+sleep 1
+test.submit_click
+
+sleep 5
