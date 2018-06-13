@@ -14,7 +14,8 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a first name' do
-      pending
+      @driver.set_first_name_field('John')
+      expect(@driver.get_first_name_field_value['value']).to eq 'John'
     end
 
     it 'should accept a last name' do
