@@ -5,13 +5,13 @@ describe 'testing the demoqa registration page' do
   before(:all) do
     @driver = SeleniumDemoRegIo.new.selenium_demoqa_registration
     @driver.access_registration_form
-    @first_name_random = NameGenerator.new.first_name_random
-    @last_name_random = NameGenerator.new.last_name_random
-    @day_random = DobGenerator.new.day_random
-    @month_random = DobGenerator.new.month_random
-    @year_random = DobGenerator.new.year_random
-    @user_random = UsernameGenerator.new.user_random(@first_name_random, @last_name_random, @year_random)
-    @email_random = EmailGenerator.new.email_random(@first_name_random)
+    @first_name_random = GeneratorIo.new.name_generator.first_name_random
+    @last_name_random = GeneratorIo.new.name_generator.last_name_random
+    @day_random = GeneratorIo.new.dob_generator.day_random
+    @month_random = GeneratorIo.new.dob_generator.month_random
+    @year_random = GeneratorIo.new.dob_generator.year_random
+    @user_random = GeneratorIo.new.username_generator.user_random(@first_name_random, @last_name_random, @year_random)
+    @email_random = GeneratorIo.new.email_generator.email_random(@first_name_random)
   end
 
   context 'positive paths for the registration form and register' do
