@@ -10,9 +10,9 @@ class SeleniumDemoReg
   MARITAL_STATUS = 'radio_4[]'
   HOBBY_STATUS = 'checkbox_5[]'
   COUNTRY_DROP_DOWN_LIST = 'dropdown_7'
-  DOB_MONTH_DROPDOWN_LIST =  # id
-  DOB_DAY_DROPDOWN_LIST =  # id
-  DOB_YEAR_DROPDOWN_LIST =  # id
+  DOB_MONTH_DROPDOWN_LIST = 'mm_date_8'
+  DOB_DAY_DROPDOWN_LIST = 'dd_date_8'
+  DOB_YEAR_DROPDOWN_LIST = 'yy_date_8'
   PHONE_NUMBER_FIELDS =  'phone_9'
   USERNAME_FIELD =  'username'
   EMAIL_FIELD =  'email_1'
@@ -47,6 +47,7 @@ class SeleniumDemoReg
   end
 
   def first_name_field_displayed
+    @chrome_driver.find_element(:id, FIRST_NAME_FIELD).displayed?
   end
 
   # last name field management - Difficulty Easy
@@ -60,6 +61,7 @@ class SeleniumDemoReg
   end
 
   def last_name_field_displayed
+    @chrome_driver.find_element(:id, LAST_NAME_FIELD).displayed?
   end
 
   # Marital option management - Difficulty Medium
@@ -84,12 +86,13 @@ class SeleniumDemoReg
   # If you are spending too long see if anyone else has been successful
   # If no solution then a run through will happen once finished
 
-  def get_selected_country(country)
+  def get_selected_country
+    @country_get = @chrome_driver.find_element(:name, COUNTRY_DROP_DOWN_LIST)
   end
 
   def country_dropdown_list_select(country)
-    dropdown = @chrome_driver.find_elements(:id, COUNTRY_DROP_DOWN_LIST)
-    dropdown[country].click()
+    option = Selenium::WebDriver::Support::Select.new(@country_get)
+    option.select_by(:text, country)
   end
 
   # DOB management - Difficulty HARD
@@ -99,15 +102,21 @@ class SeleniumDemoReg
   # If no solution then a run through will happen once finished
 
   def dob_month_list_select(month_value)
-
+    get = @chrome_driver.find_element(:id, DOB_MONTH_DROPDOWN_LIST)
+    option = Selenium::WebDriver::Support::Select.new(get)
+    option.select_by(:text, month_value)
   end
 
   def dob_day_list_select(day_value)
-
+    get = @chrome_driver.find_element(:id, DOB_DAY_DROPDOWN_LIST)
+    option = Selenium::WebDriver::Support::Select.new(get)
+    option.select_by(:text, day_value)
   end
 
   def dob_year_list_select(year_value)
-
+    get = @chrome_driver.find_element(:id, DOB_YEAR_DROPDOWN_LIST)
+    option = Selenium::WebDriver::Support::Select.new(get)
+    option.select_by(:text, year_value)
   end
 
 
@@ -132,10 +141,12 @@ class SeleniumDemoReg
   # Email field management - Difficulty Easy
 
   def set_email_field(email)
-    @chrome_driver.find_element(:name, EMAIL_FIELD).send_keys(email)
+    @email_get.send_keys(email)
   end
 
   def get_email_field_value
+    @email_get = @chrome_driver.find_element(:id, EMAIL_FIELD)
+    @email_get
   end
 
   # about yourself / description field - Difficulty Easy
@@ -171,5 +182,3 @@ class SeleniumDemoReg
   def check_registration_successful
   end
 end
-
-call = SeleniumDemoReg.new

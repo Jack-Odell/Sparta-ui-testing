@@ -3,9 +3,8 @@ require 'spec_helper'
 describe 'testing the demoqa registration page' do
 
   before(:all) do
-    @driver = SeleniumDemoReg.new
+    @driver = SeleniumDemoRegIo.new.selenium_demoqa_registration
     @driver.access_registration_form
-    # @driver.get_selected_country('Afghanistan')
   end
 
   context 'positive paths for the registration form and register' do
@@ -33,16 +32,18 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should have a country default of Afghanistan' do
-      p @driver.country_dropdown_list_select(0)
-      # expect(@driver.country_dropdown_list_select.text).to eq('Afghanistan')
+      @driver.get_selected_country
     end
 
     it 'accept a new DOB' do
-      pending
+      @driver.dob_day_list_select('4')
+      @driver.dob_month_list_select('6')
+      @driver.dob_year_list_select('1950')
     end
 
     it 'should accept a new country value' do
-      pending
+      @driver.get_selected_country
+      @driver.country_dropdown_list_select('United Kingdom')
     end
 
     it 'should accept a valid phone number' do
@@ -65,6 +66,13 @@ describe 'testing the demoqa registration page' do
       @driver.set_confirmation_password_field('dgtehrye')
     end
 
-  end
+    it 'Should accept an email' do
+      @driver.get_email_field_value
+      @driver.set_email_field('jack@email.com')
+    end
 
+    it '' do
+      sleep 10
+    end
+  end
 end
