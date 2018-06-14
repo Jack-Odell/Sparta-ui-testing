@@ -5,6 +5,13 @@ describe 'testing the demoqa registration page' do
   before(:all) do
     @driver = SeleniumDemoRegIo.new.selenium_demoqa_registration
     @driver.access_registration_form
+    @first_name_random = NameGenerator.new.first_name_random
+    @last_name_random = NameGenerator.new.last_name_random
+    @day_random = DobGenerator.new.day_random
+    @month_random = DobGenerator.new.month_random
+    @year_random = DobGenerator.new.year_random
+    @user_random = UsernameGenerator.new.user_random(@first_name_random, @last_name_random, @year_random)
+    @email_random = EmailGenerator.new.email_random(@first_name_random)
   end
 
   context 'positive paths for the registration form and register' do
@@ -14,13 +21,13 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a first name' do
-      @driver.set_first_name_field('John')
-      expect(@driver.get_first_name_field_value['value']).to eq 'John'
+      @driver.set_first_name_field(@first_name_random)
+      expect(@driver.get_first_name_field_value['value']).to eq @first_name_random
     end
 
     it 'should accept a last name' do
-      @driver.set_last_name_field('Smith')
-      expect(@driver.get_last_name_field_value['value']).to eq 'Smith'
+      @driver.set_last_name_field(@last_name_random)
+      expect(@driver.get_last_name_field_value['value']).to eq @last_name_random
     end
 
     it 'should accept a marital status selection of Single, Married, or Divorced' do
@@ -36,9 +43,9 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'accept a new DOB' do
-      @driver.dob_day_list_select('4')
-      @driver.dob_month_list_select('6')
-      @driver.dob_year_list_select('1950')
+      @driver.dob_day_list_select(@day_random)
+      @driver.dob_month_list_select(@month_random)
+      @driver.dob_year_list_select(@year_random)
     end
 
     it 'should accept a new country value' do
@@ -51,7 +58,7 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a username' do
-      @driver.set_user_name_field('Jack')
+      @driver.set_user_name_field(@user_random)
     end
 
     it 'should accept a about yourself text' do
@@ -68,7 +75,7 @@ describe 'testing the demoqa registration page' do
 
     it 'Should accept an email' do
       @driver.get_email_field_value
-      @driver.set_email_field('jack@email.com')
+      @driver.set_email_field(@email_random)
     end
 
     it '' do
